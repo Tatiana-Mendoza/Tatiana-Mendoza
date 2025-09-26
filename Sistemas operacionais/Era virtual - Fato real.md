@@ -1,4 +1,6 @@
-1.fdfd
+1. O uso de software livre ou de código aberto, como o Linux, oferece diversas vantagens, principalmente em termos de custo, flexibilidade e independência tecnológica. Por ser gratuito e com código aberto, o Linux permite que empresas como Jay Jacobs e Burlington reduzam gastos significativos com licenças de software comercial. Além disso, o código aberto possibilita customizações específicas de acordo com as necessidades da empresa, algo muitas vezes limitado em sistemas fechados. A escalabilidade desse modelo torna o processo mais inovador, transparente e eficiente.
 
 
-2. sdsfsdfd
+2. O crescimento do comércio eletrônico tem gerado uma enorme demanda por armazenamento de dados, já que as empresas precisam lidar com grandes volumes de informações de clientes, transações, produtos e comportamento de consumo. No entanto, essa necessidade não se limita apenas ao comércio eletrônico: outras áreas das empresas também geram e dependem de dados cada vez mais volumosos para suas operações, como marketing, logística, produção e atendimento ao cliente.
+  
+   Nesse contexto, tecnologias avançadas de armazenamento de dados, como as oferecidas pela EMC e outras empresas, tornam-se fundamentais.   Elas permitem que as empresas armazenem, acessem e processem dados de forma mais eficiente, segura e rápida. Isso não só atende às demandas crescentes, mas também agrega valor estratégico, pois os dados bem gerenciados se transformam em ativos importantes para a tomada de decisões, inovação e vantagem competitiva.
