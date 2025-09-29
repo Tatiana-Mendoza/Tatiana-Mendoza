@@ -1,15 +1,61 @@
 1. Qual a diferença entre programa e processo?
+Programa é uma entidade passiva (código binário persistente em disco). Processo é uma entidade ativa (instância de um programa em execução) que inclui o contexto de execução e seu próprio espaço de endereçamento na memória.
+
 2. Quais são os estados de um processo e quando ocorrem as transições?
+Os estados primários são New → Ready ↔ Running ↔ Waiting → Terminated.
+Running → Ready: Interrupção de tempo (preempção) ou evento de maior prioridade.
+Running → Waiting: Chamada de sistema para E/S ou recurso que bloqueia o processo.
+Waiting → Ready: Conclusão da E/S (interrupção de hardware).
+
 3. O que contém um Process Control Block (PCB)?
+O PCB é o metadado que armazena o contexto do processo. Contém: Estado (State), Contador de Programa (PC), Registradores da CPU, Informação Contábil e dados de Gerenciamento de Memória (tabelas de página/segmento).
+
 4. O que acontece com os recursos de um processo quando ele termina?
+O kernel desaloca todos os recursos virtuais e físicos: o espaço de endereçamento é liberado, arquivos são fechados, e o PCB é mantido apenas em um estado zumbi temporário para coletar o código de saída.
+
 5. Qual a diferença entre fork() e exec() no UNIX?
+fork(): Cria um novo processo (filho) com uma cópia copy-on-write do espaço de endereçamento virtual do pai, herdando o estado do contexto.
+
+exec(): Carrega um novo executável na região de código e dados do processo chamador, substituindo sua imagem, mas mantendo o PID.
+
 6. Como funciona a hierarquia de processos em UNIX?
+Estrutura em árvore criada pela chamada fork(). O processo init (PID 1) é o ancestral de todos os processos e o adotante de qualquer processo que se torne órfão (cujo pai termina antes).
+
 7. Compare memória compartilhada e troca de mensagens (IPC).
+Memória Compartilhada: É rápida e ideal para grandes transferências locais, mas exige que o programador lide com a sincronização manual.
+
+Troca de Mensagens: É mais simples e funciona em redes, mas é mais lenta devido ao alto envolvimento do kernel (chamadas de sistema e cópias).
+
 8. Cite exemplos de chamadas de sistema usadas em IPC.
+Memória Compartilhada: shmget(), shmat(), shmdt().
+Troca de Mensagens: msgsnd(), msgrcv().
+Sincronização: sem_wait() / sem_post() (semáforos).
+
 9. Por que é importante que o sistema operacional faça gerenciamento de processos?
+Para implementar a concorrência e multiprogramação de forma segura e eficiente, garantindo: isolamento de processos (proteção de memória), escalonamento justo da CPU e gerenciamento de deadlocks.
+
 10. Explique a diferença entre processos independentes e processos cooperativos.
+Independentes: Não compartilham estado lógico de execução (não exigem IPC).
+
+Cooperativos: Compartilham dados ou dependem de resultados um do outro; exigem sincronização e comunicação para preservar a coerência de dados.
+
 11. O que é um processo zumbi em UNIX/Linux?
+Um processo no estado defunct que já completou sua execução, mas cujo PCB ainda está retido na tabela de processos até que seu processo pai execute a chamada wait() para coletar o status de saída.
+
 12. Explique a diferença entre chamadas bloqueantes e não bloqueantes em IPC.
+Bloqueante: O thread ou processo chamador entra no estado Waiting no kernel até que a operação de IPC seja concluída (ex: mensagem recebida).
+
+Não Bloqueante: A chamada retorna imediatamente. Se a operação não puder ser completada, retorna um código de erro ou sucesso parcial, e o processo permanece no estado Running ou Ready.
+
 13. Qual a diferença entre processo pesado (process) e thread (processo leve)?
+Processo Pesado: A unidade de alocação de recursos (espaço de endereçamento, PCB, arquivos).
+
+Thread (Processo Leve): A unidade básica de escalonamento da CPU. Compartilha o espaço de endereçamento, código e recursos de seu processo, mas tem seu próprio PC, pilha e registradores.
+
 14. Por que sistemas operacionais multiprogramados precisam de troca de contexto (context switch)?
+O context switch é o mecanismo para implementar o escalonamento preemptivo. Ele salva o contexto do processo atual (no PCB) e carrega o contexto do próximo processo para que a CPU possa ser alternada de forma eficiente entre os processos Ready, maximizando a utilização da CPU.
+
 15. Cite vantagens e desvantagens da comunicação via memória compartilhada.
+Vantagens: Latência mínima (comunicação direta na memória) e alto throughput (sem cópia de dados via kernel).
+
+Desvantagens: Alto risco de condição de corrida (exigindo mecanismos de exclusão mútua explícitos) e menor proteção entre processos.
